@@ -1,0 +1,1 @@
+Symboval is designed to answer the research question: "When AI models encounter novel mathematical notation with minimal examples, do they rely primarily on symbol translation strategies or demonstrate genuine mathematical reasoning capabilities?"
