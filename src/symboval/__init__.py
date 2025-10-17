@@ -115,8 +115,13 @@ def generate_prompt(problem=None, principle=None, difficulty="medium", num_examp
     )
 
     builder = PromptBuilder(mapper)
+
+    # Extract symbols from the problem
+    notation = problem.novel_notation if use_novel_notation else problem.standard_notation
+    required_symbols = builder._extract_symbols_from_expression(notation)
+
     prompt = builder.build_system_prompt() + "\n\n"
-    prompt += builder.build_example_section(num_examples) + "\n"
+    prompt += builder.build_example_section(num_examples, required_symbols=required_symbols) + "\n"
     prompt += builder.build_problem_prompt(problem, use_novel_notation, include_thinking)
 
     return prompt
@@ -138,8 +143,12 @@ def generate_prompts(problems=None, num_problems=10, principles=None, difficulty
     prompts = []
 
     for problem in problems:
+        # Extract symbols from this specific problem
+        notation = problem.novel_notation if use_novel_notation else problem.standard_notation
+        required_symbols = builder._extract_symbols_from_expression(notation)
+
         prompt = builder.build_system_prompt() + "\n\n"
-        prompt += builder.build_example_section(num_examples) + "\n"
+        prompt += builder.build_example_section(num_examples, required_symbols=required_symbols) + "\n"
         prompt += builder.build_problem_prompt(problem, use_novel_notation, include_thinking)
         prompts.append(prompt)
 
