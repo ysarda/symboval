@@ -28,4 +28,7 @@ setup(
     install_requires=[
         "numpy>=1.24.0",
     ],
+    extras_require={
+        "eval": [],  # No extra dependencies needed - using urllib
+    },
 )
